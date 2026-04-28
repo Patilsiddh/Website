@@ -336,7 +336,7 @@ nav a:hover::after{
     grid-template-columns:1fr 1fr;
     align-items:center;
     gap:50px;
-    padding:130px 6% 60px;
+    padding:60px 6% 60px;
 }
 
 .hero-text{
@@ -388,13 +388,14 @@ nav a:hover::after{
 
 /* ================= SECTION ================= */
 section{
-    padding:100px 6%;
+    padding:0px 6%;
 }
 
 .section-title{
+        margin-top: 42px;
     text-align:center;
     font-size:2.5rem;
-    margin-bottom:55px;
+    margin-bottom:23px;
     position:relative;
 }
 
@@ -759,7 +760,7 @@ footer{
 
     .logo-text small{
         font-size:.45rem;
-        padding-left:2px;
+        padding-left:39px;
     }
 
     header{
@@ -1025,7 +1026,7 @@ footer{
 
 
     <style>#techstack{
-    padding:100px 6%;
+    padding:0px 6%;
     background:rgba(15,23,42,.6);
 }
 
@@ -1094,14 +1095,15 @@ footer{
 }</style>
 </section>
 
+
+
+
 <section id="testimonials" class="reveal">
     <h2 class="section-title">What Clients Say</h2>
 
     <div class="testimonial-wrapper">
+        <div class="testimonial-track" id="testimonialTrack">
 
-        <div class="testimonial-track">
-
-            <!-- Pune -->
             <div class="testimonial-card">
                 <p>“The team delivered our website with excellent design and smooth performance. Very professional and responsive throughout the project.”</p>
                 <h4>— Rahul Patil</h4>
@@ -1114,7 +1116,6 @@ footer{
                 <span>Pune, Maharashtra</span>
             </div>
 
-            <!-- Nashik -->
             <div class="testimonial-card">
                 <p>“Highly skilled developers. The automation system they built saved us a lot of manual work and improved efficiency.”</p>
                 <h4>— Amit Jadhav</h4>
@@ -1127,7 +1128,6 @@ footer{
                 <span>Nashik, Maharashtra</span>
             </div>
 
-            <!-- Delhi -->
             <div class="testimonial-card">
                 <p>“Professional IT partner. They delivered our project on time with great quality and modern technology stack.”</p>
                 <h4>— Vikram Sharma</h4>
@@ -1135,15 +1135,17 @@ footer{
             </div>
 
         </div>
-
     </div>
-    <style>#testimonials{
-    padding:80px 6%;
+</section>
+
+<style>
+#testimonials{
+    padding:-18px 6%;
     background:rgba(15,23,42,.6);
     overflow:hidden;
 }
 
-/* VIEWPORT */
+/* WRAPPER */
 .testimonial-wrapper{
     overflow:hidden;
     width:100%;
@@ -1154,12 +1156,14 @@ footer{
     display:flex;
     gap:18px;
     width:max-content;
-    animation:scrollTestimonial 40s linear infinite; /* slow */
+    animation:scrollTestimonial 40s linear infinite;
+    transition:transform .6s ease;
 }
 
-/* CARD (FIXED WIDTH — IMPORTANT CHANGE) */
+/* CARD */
 .testimonial-card{
-    flex:0 0 500px;   /* 👈 FIXED SMALL WIDTH */
+    flex:0 0 500px;
+    min-width:500px;
     background:rgba(30,41,59,.7);
     border:1px solid rgba(255,255,255,.08);
     padding:20px;
@@ -1194,34 +1198,76 @@ footer{
     border-color:#38bdf8;
 }
 
-/* ANIMATION */
+/* DESKTOP MARQUEE */
 @keyframes scrollTestimonial{
-    0%{
-        transform:translateX(0);
-    }
-    100%{
-        transform:translateX(-50%);
-    }
+    from{transform:translateX(0);}
+    to{transform:translateX(calc(-50% - 9px));}
 }
+/* TABLET / MOBILE */
+@media (max-width:768px){
 
-/* RESPONSIVE */
-@media(max-width:992px){
-    .testimonial-card{
-        flex:0 0 260px;
-    }
-}
-
-@media(max-width:768px){
-    .testimonial-card{
-        flex:0 0 85%;
+    .testimonial-wrapper{
+        overflow:hidden;
+        width:100%;
     }
 
     .testimonial-track{
-        animation-duration:45s;
+        animation:none;
+        display:flex;
+        gap:0;
+        width:100%;
+        transition:transform .6s ease;
     }
-}</style>
-</section>
 
+    .testimonial-card{
+        flex:0 0 50%;
+        min-width:50%;
+        box-sizing:border-box;
+        padding:18px;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width:480px){
+    .testimonial-card{
+        flex:0 0 100%;
+        min-width:100%;
+    }
+}
+</style>
+
+<script>
+const track = document.getElementById("testimonialTrack");
+const cards = document.querySelectorAll(".testimonial-card");
+
+let currentIndex = 0;
+
+function autoSlideTestimonials() {
+    if (window.innerWidth > 768) return;
+
+    const visibleCards = window.innerWidth <= 480 ? 1 : 2;
+    const maxIndex = cards.length - visibleCards;
+
+    currentIndex++;
+
+    if (currentIndex > maxIndex) {
+        currentIndex = 0;
+    }
+
+    const movePercent = window.innerWidth <= 480
+        ? currentIndex * 100
+        : currentIndex * 50;
+
+    track.style.transform = `translateX(-${movePercent}%)`;
+}
+
+setInterval(autoSlideTestimonials, 2000);
+
+window.addEventListener("resize", () => {
+    currentIndex = 0;
+    track.style.transform = "translateX(0)";
+});
+</script>
 
 
 
@@ -1302,7 +1348,7 @@ footer{
 
 /* ================= SECTION ================= */
 #contact{
-    padding:70px 6%;
+    padding:10px 6%;
     background:rgba(15,23,42,.6);
 }
 
